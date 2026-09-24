@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
 import java.util.concurrent.Semaphore;
-
+ 
 public class ControlEstacionamiento {
     private Semaphore semaforo;
     private Deque<Integer> lugaresDisponibles = new ArrayDeque<>();

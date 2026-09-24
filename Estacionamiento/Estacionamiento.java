@@ -6,7 +6,7 @@ public class Estacionamiento extends Thread {
     private ControlEstacionamiento control;
     private int lugar;
     private long horaEntrada;
-
+ 
     public Estacionamiento(String nombre, long tiempoMin, long tiempoMax, ControlEstacionamiento control) {
         this.nombre = nombre;
         this.tiempoMin = tiempoMin;

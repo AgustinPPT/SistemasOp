@@ -5,13 +5,14 @@ public class MainEstacionamiento {
         int lugaresDisponibles = 3;
         ControlEstacionamiento control = new ControlEstacionamiento(lugaresDisponibles);
         List<Estacionamiento> carros = new ArrayList<>();
-        carros.add(new Estacionamiento("Carro 1", 1000, 5000, control));
-        carros.add(new Estacionamiento("Carro 2", 1000, 5000, control));
-        carros.add(new Estacionamiento("Carro 3", 1000, 5000, control));
-        carros.add(new Estacionamiento("Carro 4", 1000, 5000, control));
-        carros.add(new Estacionamiento("Carro 5", 1000, 5000, control));
-        carros.add(new Estacionamiento("Carros6", 1000, 5000, control));
-
+        //Creacion de los carros con sus tiempos de estacionamiento
+        carros.add(new Estacionamiento("Impala", 3000, 10000, control));
+        carros.add(new Estacionamiento("Toyota", 3000, 10000, control));
+        carros.add(new Estacionamiento("Prius", 3000, 10000, control));
+        carros.add(new Estacionamiento("Honda", 3000, 10000, control));
+        carros.add(new Estacionamiento("Civic", 3000, 10000, control));
+        carros.add(new Estacionamiento("Raptor", 3000, 10000, control));
+        
         System.out.println("==Estacionamiento con " + lugaresDisponibles + " lugares disponibles==\n");
         for (Estacionamiento carro : carros) {
             carro.start();
