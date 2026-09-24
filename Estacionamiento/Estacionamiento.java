@@ -1,47 +1,44 @@
 public class Estacionamiento extends Thread {
-    private static Object Carros_ = new Object();
-
     private String nombre;
-    private long tiempoMinMs;
-    private long tiempoMaxMs;
-    private long tiempoTotalMs = 0;
-
-    public Estacionamiento(String nombre, long tiempoMinMs, long tiempoMaxMs) {
+    private long tiempoMin;
+    private long tiempoMax;
+    private long tiempoEstacionado;
+    private ControlEstacionamiento control;
+    private int lugar;
+    private long horaEntrada;
+    //Constructor
+    public Estacionamiento(String nombre, long tiempoMin, long tiempoMax, ControlEstacionamiento control) {
         this.nombre = nombre;
-        this.tiempoMinMs = tiempoMinMs;
-        this.tiempoMaxMs = tiempoMaxMs;
+        this.tiempoMin = tiempoMin;
+        this.tiempoMax = tiempoMax;
+        this.control = control;
+        this.tiempoEstacionado = generarTiempoAleatorio();
     }
 
-    public long generarTiempoAleatorio() {
-        long rango = tiempoMaxMs - tiempoMinMs;
-        return tiempoMinMs + (long) (Math.random() * rango);
+    private long generarTiempoAleatorio() {
+    long rango = tiempoMax - tiempoMin;
+    return tiempoMin + (long) (Math.random());
     }
 
-    //getters
-    public String getNombre() {
-        return nombre;
-    }
-    public long getTiempoTotalMs() {
-        return tiempoTotalMs;
-    }
+    //Getters y Setters
+    public String getNombre(){return nombre;}
+    public long gettiempoEstacionado(){return tiempoEstacionado;}
+    public int getLugar(){return lugar;}
+    public void setLugar(int lugar){this.lugar = lugar;}
+    public long gethoraEntrada(){return horaEntrada;}
+    public void sethoraEntrada(long horaEntrada){this.horaEntrada = horaEntrada;}
+
     @Override 
     public void run() {
-        long tiempoEstacionamientoMs = generarTiempoAleatorio();
-
-        try {
-            // Simula el tiempo que tarda en estacionarse (aleatorio)
-            Thread.sleep(tiempoEstacionamientoMs);
-        } catch (InterruptedException e) {
+        control.registrarLlegada(this);
+        try{
+            control.entrar(this);//aqui se bloquea si no hay lugar
+            Thread.sleep(tiempoEstacionado);//simula el tiempo que el carro esta estacionado
+        }catch(InterruptedException e){
             Thread.currentThread().interrupt();
             return;
-        }
-
-        // Al completar el sleep, se considera que el carro ha terminado de estacionarse
-        tiempoTotalMs += tiempoEstacionamientoMs;
-
-        synchronized (Carros_) {
-            System.out.printf("Carro: %s completo su estacionamiento en %d ms%n",
-                    nombre, tiempoEstacionamientoMs);
+        }fianlly{
+            control.salir(this);//libera el lugar 
         }
     }
 }
