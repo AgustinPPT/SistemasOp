@@ -6,7 +6,7 @@ public class Estacionamiento extends Thread {
     private ControlEstacionamiento control;
     private int lugar;
     private long horaEntrada;
- 
+    
     public Estacionamiento(String nombre, long tiempoMin, long tiempoMax, ControlEstacionamiento control) {
         this.nombre = nombre;
         this.tiempoMin = tiempoMin;
@@ -14,12 +14,12 @@ public class Estacionamiento extends Thread {
         this.control = control;
         this.tiempoEstacionado = generarTiempoAleatorio();
     }
-
+    //Tiempo aleatorio entre tiempoMin y tiempoMax
     private long generarTiempoAleatorio() {
         long rango = tiempoMax - tiempoMin;
         return tiempoMin + (long) (Math.random() * rango);
     }
-
+    // Getters y setters
     public String getNombre() { return nombre; }
     public long gettiempoEstacionado() { return tiempoEstacionado; }
     public int getLugar() { return lugar; }
