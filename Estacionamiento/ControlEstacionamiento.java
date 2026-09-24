@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
 import java.util.concurrent.Semaphore;
- 
+//Creacion de arraylist 
 public class ControlEstacionamiento {
     private Semaphore semaforo;
     private Deque<Integer> lugaresDisponibles = new ArrayDeque<>();
@@ -16,7 +16,7 @@ public class ControlEstacionamiento {
             lugaresDisponibles.add(i);
         }
     }
-
+//
     public synchronized void registrarLlegada(Estacionamiento carro) {
         esperando.add(carro);
         System.out.printf("Llego el carro: %s%n", carro.getNombre());
@@ -24,7 +24,7 @@ public class ControlEstacionamiento {
             System.out.printf("%s esta esperando un lugar disponible. En espera: %s%n", carro.getNombre(), nombres(esperando));
         }
     }
-
+//
     public void entrar(Estacionamiento carro) throws InterruptedException {
         semaforo.acquire();
         synchronized (this) {
