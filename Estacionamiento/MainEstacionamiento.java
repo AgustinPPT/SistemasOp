@@ -1,33 +1,24 @@
 import java.util.ArrayList;
 import java.util.List;
 public class MainEstacionamiento {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
+        int lugaresDisponibles = 3;
+        ControlEstacionamiento control = new ControlEstacionamiento(lugaresDisponibles);
         List<Estacionamiento> carros = new ArrayList<>();
-        carros.add(new Estacionamiento("Toyota", 1000, 5000));
-        carros.add(new Estacionamiento("Cadillac", 1000, 5000));
-        carros.add(new Estacionamiento("Ford", 1000, 5000));
-        carros.add(new Estacionamiento("Chevrolet", 1000, 5000));
-        carros.add(new Estacionamiento("DeLorean", 1000, 5000));
-        carros.add(new Estacionamiento("Dodge", 1000, 5000));
-        
-        for(Estacionamiento carro : carros){
+        carros.add(new Estacionamiento("Carro 1", 1000, 5000, control));
+        carros.add(new Estacionamiento("Carro 2", 1000, 5000, control));
+        carros.add(new Estacionamiento("Carro 3", 1000, 5000, control));
+        carros.add(new Estacionamiento("Carro 4", 1000, 5000, control));
+        carros.add(new Estacionamiento("Carro 5", 1000, 5000, control));
+        carros.add(new Estacionamiento("Carros6", 1000, 5000, control));
+
+        System.out.println("==Estacionamiento con " + lugaresDisponibles + " lugares disponibles==\n");
+        for (Estacionamiento carro : carros) {
             carro.start();
         }
-        for(Estacionamiento carro : carros){
-            try {
-                carro.join();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+        for (Estacionamiento carro : carros) {
+            carro.join();
         }
-
-        Estacionamiento ganador = carros.get(0);
-        for(Estacionamiento carro : carros){
-            if(carro.getTiempoTotalMs() < ganador.getTiempoTotalMs()){
-                ganador = carro;
-            }
-        }
-        System.out.printf("El carro que estacionó más rápido es: %s%n", ganador.getNombre());
+        System.out.println("==Todos los carros se han estacionado y salido del estacionamiento==");
     }
-    
 }
